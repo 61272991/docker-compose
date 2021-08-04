@@ -1,0 +1,16 @@
+version: '3'
+services:
+  redis:
+    #镜像
+    image: redis:latest
+    #重启策略：no always
+    restart: "no"
+    container_name: redis
+    volumes:
+      - ./docker-conf/nginx/redis.conf:/etc/redis/redis.conf
+      - ./docker-conf/nginx/data:/data
+    command:
+    ["redis-server", "--appendonly no", "--requirepass redis"]
+    /bin/bash -c "redis-server /etc/redis/redis.conf"
+    ports:
+      - 6379:6379
